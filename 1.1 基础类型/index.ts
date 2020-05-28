@@ -41,7 +41,7 @@ let list1:Array<number> = [1,2,3];
  * ts新增类型，表示一个已知元素数量和类型的数组，各元素的类型不必相同
  */
 let array:[number,string] = [1,'1'];
-let array1:[boolean,Array<number>] = [true,[1,2,3]];
+let array1:[boolean,Array<这能避免>] = [true,[1,2,3]];
 
 /** 
  * 6. 枚举
@@ -56,10 +56,68 @@ let people4:People = People.zyj;
 console.log(people1,people2,people3,people4);
 
 /** 
- * 6. any
+ * 7. any
  * ts新增类型，any类型的变量类型检查器不检查，一般用于动态约束某变量，
  */
 let any:any = 1;
 any = true;
 any = 'abc';
 any = [1,"2",true];
+
+/** 
+ * 8. void
+ * ts新增类型，与any类型相反，表示没有任何类型，一般用于函数没有返回值,当变量使用时只能赋予undefined或null
+ */
+function func():void{
+   //TODO   
+}
+let hhb:void = undefined;
+let hhb1:void = null;
+
+/** 
+ * 9. null和undefined
+ * 和js基本一致，他们两个各自的类型分别是null和undefined
+ */
+let dog:null = null;
+let dog1:undefined = undefined;
+//null和undefined是所有类型的子类型
+//当指定了--strictNullChecks标记时，null和undefined只能赋值给void和它们各自。这是非常有必要的。
+//传入一个 string或null或undefined，你可以使用联合类型string | null | undefined。
+
+/** 
+ * 10. never
+ * ts新增类型，表示的是那些永不存在的值的类型。例如：never类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型
+ * 变量也可能是 never类型，当它们被永不为真的类型保护所约束时。
+ * never类型是任何类型的子类型，也可以赋值给任何类型；没有类型是never的子类型或可以赋值给never类型（除了never本身之外）。 即使 any也不可以赋值给never。
+ */
+// 返回never的函数必须存在无法达到的终点
+function error(message: string): never {
+    throw new Error(message);
+}
+// 推断的返回值类型为never
+function fail() {
+    return error("Something failed");
+}
+// 返回never的函数必须存在无法达到的终点
+function infiniteLoop(): never {
+    //无限循环
+    while (true) {
+    }
+}
+
+/** 
+ * 11. Object
+ * 和js不一样，表示非原始类型，也就是除number，string，boolean，symbol，null或undefined之外的类型。
+ */
+let object:object = {name:"1",age:2};
+let object1:object = new Object({name:'1',age:2});
+let object2:object = [1,2,3,4];
+let object3:object = ['1',2,true];
+
+//类型断言
+//第一种
+let someValue: any = "this is a string";
+let strLength: number = (<string>someValue).length;
+//第二种
+let someValue1: any = "this is a string";
+let strLength1: number = (someValue1 as string).length;
