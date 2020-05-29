@@ -41,7 +41,7 @@ let list1:Array<number> = [1,2,3];
  * ts新增类型，表示一个已知元素数量和类型的数组，各元素的类型不必相同
  */
 let array:[number,string] = [1,'1'];
-let array1:[boolean,Array<这能避免>] = [true,[1,2,3]];
+let array1:[boolean,Array<number>] = [true,[1,2,3]];
 
 /** 
  * 6. 枚举
