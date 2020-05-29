@@ -118,17 +118,17 @@ interface ReadonlyStringArray {
 
 /**
  * 类类型
- * 可索引类型具有一个‘索引签名’，它描述了对象索引的类型，还有相应的索引返回值类型。TypeScript支持两种索引签名：字符串和数字。
+ * 让一个类符合接口约束。
  */
 //设置一个ClockInterface接口
 interface ClockInterface {
     currentTime: Date;
 }
 //声明一个类Clock用ClockInterface约束
-class Clock implements ClockInterface {
-    currentTime: Date;
-    constructor(h: number, m: number) { }
-}
+// class Clock implements ClockInterface {
+//     currentTime: Date;
+//     constructor(h: number, m: number) { }
+// }
 //可以在接口中描述一个方法，在类里实现它，
 interface ClockInterface1 {
     currentTime: Date;
@@ -141,4 +141,99 @@ class Clock1 implements ClockInterface1 {
         this.currentTime = d;
     }
     constructor(h: number, m: number) { }
+}
+
+
+/**
+ * 类静态部分与实例部分的区别
+ * 类是具有两个类型的：静态部分的类型和实例的类型
+ */
+//创建一个ClockConstructor的接口
+interface ClockConstructor {
+    //如果函数签名有前缀new表示这个函数必须要被构造器调用。函数签名，用来约束某函数必须按照参数类型和返回值
+    new (hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    //在该接口里描述了一个方法
+    tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+//创建了一个DigitalClock类用ClockInterface约束
+// class DigitalClock implements ClockInterface {
+//     //该类的构造器
+//     constructor(h: number, m: number) { }
+//     //实现ClockInterface中描述的类
+//     tick() {
+//         console.log("beep beep");
+//     }
+// }
+//创建了一个AnalogClock类用ClockInterface约束
+// class AnalogClock implements ClockInterface {
+//     //该类的构造器
+//     constructor(h: number, m: number) { }
+//     //实现ClockInterface中描述的类
+//     tick() {
+//         console.log("tick tock");
+//     }
+// }
+//当调用createClock，类型检查器会检查DigitalClock/AnalogClock是否满足ClockConstructor的约束
+// let digital = createClock(DigitalClock, 12, 17);
+// let analog = createClock(AnalogClock, 7, 32);
+
+/**
+ * 继承接口
+ * 接口也可以相互继承，可以更灵活地将接口分割到可重用的模块里。
+ */
+//声明一个接口Shape
+interface Shape {
+    color: string;
+}
+//声明一个接口Square继承Shape
+interface Square extends Shape {
+    sideLength: number;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+//多个接口的继承用，隔开
+interface Square1 extends Shape, PenStroke {
+    sideLength: number;
+}
+
+/**
+ * 混合类型
+ * 一个对象可以同时做为函数和对象使用，具有多种类型
+ */
+//声明一个接口Counter
+ interface Counter {
+     //函数类型
+    (start: number): string;
+    //普通属性
+    interval: number;
+    //类类型
+    reset(): void;
+}
+
+/**
+ * 接口继承类
+ */
+class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+    select() { }
+}
+
+class TextBox extends Control {
+    select() { }
 }
