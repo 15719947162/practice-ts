@@ -121,3 +121,31 @@ class Grid {
     //构造器
     constructor (public scale: number) { }
 }
+
+/**
+ * 抽象类
+ * 抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法
+ */
+//定义抽象类Animal3
+abstract class Animal3 {
+    //定义抽象方法makeSound,相当于方法签名
+    abstract makeSound(): void;
+    constructor(public name: string) {
+    }
+    move(): void {
+        console.log('roaming the earch...');
+    }
+}
+//抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。 
+class Cat extends Animal3{
+    constructor() {
+        super('Accounting and Auditing'); // 在派生类的构造函数中必须调用 super()
+    }
+    //抽象方法的具体实现
+    makeSound(): void{
+        console.log('makeSound...');
+    }
+    catch(data): void{
+        console.log('catch...'+data);
+    }
+}
