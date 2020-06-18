@@ -36,3 +36,11 @@ function buildName1(firstName: string, lastName = "Smith") {
 function buildName2(firstName: string, ...restOfName: string[]) {
     return firstName + " " + restOfName.join(" ");
 }
+
+/**
+ * this
+ * 限制this类型的方法是，提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面
+ */
+function f(this: void) {
+    // make sure `this` is unusable in this standalone function
+}
