@@ -32,7 +32,8 @@ console.log(string3);
  * 第一种：类型后加[],例如number[]
  * 第二种：数组泛型，例如Array<number>
  */
-let list:number[] = [1,2,3];
+let numberList:number[] = [1,2,3];
+let stringList:string[] = ['1','2','3'];
 let list1:Array<number> = [1,2,3];
 
 
